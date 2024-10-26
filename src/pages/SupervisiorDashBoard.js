@@ -172,44 +172,90 @@ const SupervisiorDashBoard = () => {
 
       {/* Modal */}
       {modalOpen && selectedCase && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full relative">
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+          <div className="bg-white p-10 rounded-lg shadow-2xl max-w-2xl w-full relative">
             <button
               onClick={closeModal}
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
             >
               &times;
             </button>
-            <h3 className="text-3xl font-semibold text-gray-800 mb-4">Case Details</h3>
-            <div className="space-y-2 text-gray-700">
-              <p><strong>Case ID:</strong> {selectedCase.caseId}</p>
-              <p><strong>User ID:</strong> {selectedCase.userId}</p>
-              <p><strong>Supervisor ID:</strong> {selectedCase.supervisorId}</p>
-              <p><strong>Supervisor Name:</strong> {selectedCase.superVisorName}</p>
-              <p><strong>Date:</strong> {new Date(selectedCase.caseDate).toLocaleDateString()}</p>
-              <p><strong>Patient Age:</strong> {selectedCase.patientAge}</p>
-              <p><strong>Resident Year:</strong> {selectedCase.residentYear}</p>
-              <p><strong>Emergency Level:</strong> {selectedCase.emergencyLevel}</p>
-              <p><strong>Procedure Type:</strong> {selectedCase.procedureType}</p>
-              <p><strong>Description:</strong> {selectedCase.description}</p>
-              <p><strong>Status:</strong> <span className={`${selectedCase.status === 'APPROVED' ? 'text-green-600' : selectedCase.status === 'REJECTED' ? 'text-red-600' : 'text-yellow-600'}`}>{selectedCase.status}</span></p>
+            <h2 className="text-2xl font-semibold leading-7 text-gray-900 mb-8">Case Information</h2>
+            <p className="mb-6 text-sm leading-6 text-gray-600">
+              Details of the selected case.
+            </p>
+    
+            <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
+              <div className="sm:col-span-1">
+                <label className="block text-sm font-medium leading-6 text-gray-900">User ID</label>
+                <p className="text-gray-700">{selectedCase.userId}</p>
+              </div>
+    
+              <div className="sm:col-span-1">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Supervisor Name</label>
+                <p className="text-gray-700">{selectedCase.superVisorName}</p>
+              </div>
+    
+              <div className="sm:col-span-1">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Case ID</label>
+                <p className="text-gray-700">{selectedCase.caseId}</p>
+              </div>
+    
+              <div className="sm:col-span-1">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Case Date</label>
+                <p className="text-gray-700">{new Date(selectedCase.caseDate).toLocaleDateString()}</p>
+              </div>
+    
+              <div className="sm:col-span-1">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Patient Age</label>
+                <p className="text-gray-700">{selectedCase.patientAge}</p>
+              </div>
+    
+              <div className="sm:col-span-1">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Resident Year</label>
+                <p className="text-gray-700">{selectedCase.residentYear}</p>
+              </div>
+    
+              <div className="sm:col-span-1">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Emergency Level</label>
+                <p className="text-gray-700">{selectedCase.emergencyLevel}</p>
+              </div>
+    
+              <div className="sm:col-span-1">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Procedure Type</label>
+                <p className="text-gray-700">{selectedCase.procedureType}</p>
+              </div>
+    
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                <p className="text-gray-700">{selectedCase.description}</p>
+              </div>
+    
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium leading-6 text-gray-900">Status</label>
+                <p className={`text-gray-700 font-semibold ${selectedCase.status === 'APPROVED' ? 'text-green-600' : selectedCase.status === 'REJECTED' ? 'text-red-600' : 'text-yellow-600'}`}>
+                  {selectedCase.status}
+                </p>
+              </div>
             </div>
-
+    
             {/* Approve Button with Loader */}
             {selectedCase.status === 'PENDING' && (
-              <button
-                onClick={approveCase}
-                disabled={approving}
-                className={`mt-6 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200 font-bold flex justify-center items-center ${approving ? 'opacity-70' : ''}`}
-              >
-                {approving ? (
-                  <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
-                    <path fill="currentColor" d="M4 12a8 8 0 018-8V0C6.477 0 2 4.477 2 10h2z" className="opacity-75" />
-                  </svg>
-                ) : null}
-                {approving ? 'Approving...' : 'Approve Case'}
-              </button>
+              <div className="mt-6 flex items-center justify-end">
+                <button
+                  onClick={approveCase}
+                  disabled={approving}
+                  className={`mt-6 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200 font-bold flex justify-center items-center ${approving ? 'opacity-70' : ''}`}
+                >
+                  {approving ? (
+                    <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
+                      <path fill="currentColor" d="M4 12a8 8 0 018-8V0C6.477 0 2 4.477 2 10h2z" className="opacity-75" />
+                    </svg>
+                  ) : null}
+                  {approving ? 'Approving...' : 'Approve Case'}
+                </button>
+              </div>
             )}
           </div>
         </div>
