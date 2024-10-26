@@ -9,6 +9,7 @@ import ResetPassword from './pages/ResetPassword';
 import ForgotPassword from "./pages/ForgotPassword";
 import ErrorPage from './pages/ErrorPage';
 import CaseForm from './pages/CaseForm';
+import SupervisiorDashBoard from './pages/SupervisiorDashBoard';
 
 function App() {
   return (
@@ -20,8 +21,9 @@ function App() {
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/resetpassword" element={<ResetPassword/>}/>
             <Route path="/forgotpassword" element={<ForgotPassword/>}/>
-            <Route path="/errorpage" element={<ErrorPage/>}/>
-            <Route path="/caseform" element={<CaseForm/>}/>
+            <Route path="/casereporting" element={<CaseForm/>}/>
+            <Route path="/mycases" element={<SupervisiorDashBoard/>}/>
+            <Route path="*" element={<ErrorPage/>}/>
           </Routes>
       </div>
     </Router>

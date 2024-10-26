@@ -5,13 +5,11 @@ const AppContext = createContext();
 
 // Custom provider component
 export const AppProvider = ({ children }) => {
-  const [state, setState] = useState({ user: null, theme: 'light' });
+  const [user, setUser] = useState(null);
 
-  const updateUser = (user) => setState((prev) => ({ ...prev, user }));
-  const toggleTheme = () => setState((prev) => ({ ...prev, theme: prev.theme === 'light' ? 'dark' : 'light' }));
 
   return (
-    <AppContext.Provider value={{ state, updateUser, toggleTheme }}>
+    <AppContext.Provider value={{ user, setUser }}>
       {children}
     </AppContext.Provider>
   );

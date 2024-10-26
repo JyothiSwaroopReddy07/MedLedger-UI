@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useAppContext } from '../Context/StateContext'; 
+
 
 const Login = () => {
+
+    const {setUser} = useAppContext();
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: ''
   });
   const [errors, setErrors] = useState({});
@@ -19,7 +23,7 @@ const Login = () => {
   // Validate form fields
   const validate = () => {
     const newErrors = {};
-    if (!formData.username) newErrors.email = 'UserName is required';
+    if (!formData.username) newErrors.username = 'UserName is required';
     if (!formData.password) newErrors.password = 'Password is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -36,9 +40,12 @@ const Login = () => {
       try {
         // Make the login request
         const response = await axios.post('http://localhost:8080/auth/login', {
-          email: formData.email,
+          username: formData.username,
           password: formData.password
         });
+
+        setUser(response.data.user);
+
         
         setLoginMessage('Login successful!');
         setIsSubmitting(false);
