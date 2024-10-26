@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAppContext } from '../Context/StateContext'; 
-
+import { FaArrowLeft } from 'react-icons/fa'; 
 
 const Login = () => {
 
@@ -59,6 +59,10 @@ const Login = () => {
 
   return (
     <div className="flex bg-gold items-center justify-center h-screen w-screen px-5 sm:px-0">
+       <a href="/" className="absolute top-4 left-4 flex items-center text-gray-700 hover:text-gray-900">
+                <FaArrowLeft className="mr-2" /> {/* Back arrow icon */}
+                <span className="text-sm font-semibold">Back to Home</span>
+        </a>
       <form onSubmit={handleSubmit} className="flex bg-white rounded-lg shadow-lg border overflow-hidden max-w-sm lg:max-w-4xl w-full">
         <img
           className="hidden md:block lg:w-1/2 bg-cover bg-blue-700"
