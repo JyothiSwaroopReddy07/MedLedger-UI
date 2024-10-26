@@ -1,11 +1,14 @@
 import React from 'react'
 
-const PatientForm = () => {
+const CaseForm = () => {
+
+
   return (
     <div>
+      
       
     </div>
   )
 }
 
-export default PatientForm
+export default CaseForm
