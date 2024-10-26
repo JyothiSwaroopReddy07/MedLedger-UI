@@ -5,7 +5,7 @@ const AppContext = createContext();
 
 // Custom provider component
 export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user'))||null);
 
 
   return (

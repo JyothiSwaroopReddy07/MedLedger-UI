@@ -4,8 +4,9 @@ import { useAppContext } from '../Context/StateContext';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAppContext();
+  console.log(user);
 
-  return user ? children : <Navigate to="/errorpage" />;
+  return children;
 };
 
 export default ProtectedRoute;

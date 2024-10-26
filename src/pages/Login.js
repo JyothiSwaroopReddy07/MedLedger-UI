@@ -20,6 +20,11 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const settingUser = async(user) => {
+    setUser(user);
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
   // Validate form fields
   const validate = () => {
     const newErrors = {};
@@ -43,13 +48,20 @@ const Login = () => {
           username: formData.username,
           password: formData.password
         });
+        console.log(response);
 
-        setUser(response.data.user);
-
+        await settingUser(response.data);
+        const type = response.data.type;
         
         setLoginMessage('Login successful!');
         setIsSubmitting(false);
         // Redirect user or perform further actions here after a successful login
+        if(type === "RESIDENT")
+          window.location.href = "/residentdashboard"
+        if(type === "SUPERVISOR")
+          window.location.href = "/mycases"
+        if(type === "PROGRAM_DIRECTOR")
+          window.location.href = "/stats"
       } catch (error) {
         setLoginMessage('Login failed. Please check your credentials and try again.');
         setIsSubmitting(false);

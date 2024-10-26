@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import {useAppContext} from "../Context/StateContext";
 
 const CaseForm = () => {
+  const {user} = useAppContext();
   const [startDate, setStartDate] = useState(new Date());
   const [selectedOption, setSelectedOption] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [text, setText] = useState('');
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(user.id);
   const [caseId, setCaseId] = useState('');
   const [patientAge, setPatientAge] = useState('');
   const [residentYear, setResidentYear] = useState('');
@@ -71,21 +73,6 @@ const CaseForm = () => {
             <h2 className="text-base font-semibold leading-7 text-gray-900">Case Information</h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">Please enter the details of your case</p>
             <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-6">
-              <div className="sm:col-span-3">
-                <label htmlFor="userId" className="block text-sm font-medium leading-6 text-gray-900 text-left">
-                  User Id
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="userId"
-                    name="userId"
-                    type="text"
-                    value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
 
               <div className="sm:col-span-3">
                 <label htmlFor="supervisorId" className="block text-sm font-medium leading-6 text-gray-900 text-left">
