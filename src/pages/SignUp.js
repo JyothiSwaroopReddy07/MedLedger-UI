@@ -46,10 +46,10 @@ const SignUp = () => {
             try {
                 // Make the signup request
                 const response = await axios.post('http://localhost:8080/auth/register', {
-                    fullname: formData.fullname,
+                    name: formData.fullname,
                     username: formData.username,
                     password: formData.password,
-                    role: formData.role,
+                    type: formData.role,
                 });
                 setSuccessMessage('Signup successful!');
                 setIsSubmitting(false);
