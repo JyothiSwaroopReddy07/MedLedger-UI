@@ -57,6 +57,7 @@ const CaseForm = () => {
       const response = await axios.post('http://localhost:8080/cases/log', formData);
       setMessage('Case logged successfully!');
       setIsSubmitting(false);
+      window.location.href="/residentdashboardhistory";
     } catch (error) {
       console.error('Error logging case:', error);
       setMessage('Failed to log the case.');
