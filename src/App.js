@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ResetPassword from './pages/ResetPassword';
 import ForgotPassword from "./pages/ForgotPassword";
+import ErrorPage from './pages/ErrorPage';
+import CaseForm from './pages/CaseForm';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/resetpassword" element={<ResetPassword/>}/>
             <Route path="/forgotpassword" element={<ForgotPassword/>}/>
+            <Route path="/errorpage" element={<ErrorPage/>}/>
+            <Route path="/caseform" element={<CaseForm/>}/>
           </Routes>
       </div>
     </Router>
