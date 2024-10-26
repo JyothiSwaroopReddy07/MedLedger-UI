@@ -100,7 +100,7 @@ const SupervisiorDashBoard = () => {
     const fetchCases = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:8080/supervisor/${user.id}`);
+        const response = await axios.get(`http://localhost:8080/cases/supervisor/${user.id}`);
         setCases(response.data); // Assuming the response is an array of case objects
         setLoading(false);
       } catch (error) {
@@ -130,7 +130,7 @@ const SupervisiorDashBoard = () => {
   const approveCase = async () => {
     setApproving(true); // Show loader
     try {
-      const response = await axios.put(`http://localhost:8080/${selectedCase.caseId}/approve`);
+      const response = await axios.put(`http://localhost:8080/cases/${selectedCase.caseId}/approve`);
       if (response.status === 200) {
         // Update case status in frontend
         setSelectedCase({ ...selectedCase, status: 'APPROVED' });

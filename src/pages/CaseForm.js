@@ -16,7 +16,7 @@ const CaseForm = () => {
   const [residentYear, setResidentYear] = useState('');
   const [procedureType, setProcedureType] = useState('');
   const [superVisors, setSuperVisors] = useState([]);
-  const [supervisor, setSupervisor] = useState('');
+  const [supervisor, setSupervisor] = useState(null);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -24,6 +24,7 @@ const CaseForm = () => {
       try {
         const response = await axios.get('http://localhost:8080/auth/users/supervisors');
         setSuperVisors(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching supervisors:', error);
       }
@@ -38,15 +39,18 @@ const CaseForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     setIsSubmitting(true);
     // Collect form data
+    const sup = JSON.parse(supervisor);
+    console.log(sup);
     const formData = {
       userId,
-      supervisorName: supervisor.name,
+      superVisorName:sup.name,
       caseId,
       caseDate: startDate.toISOString().split('T')[0], // Format date as YYYY-MM-DD
       patientAge,
-      superVisorId: supervisor.id, // This will be passed as the selected supervisor's ID
+      supervisorId:sup.id, // This will be passed as the selected supervisor's ID
       residentYear,
       emergencyLevel: selectedOption,
       procedureType,
@@ -82,13 +86,12 @@ const CaseForm = () => {
                   <select
                     id="supervisor"
                     name="supervisor"
-                    value={supervisor}
-                    onChange={(e) => setSupervisor(e.target.value)}
+                    onChange={(e) => {setSupervisor(e.target.value)}}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:text-sm sm:leading-6"
                   >
                     <option value="">Select a supervisor</option>
                     {superVisors.map((supervisor) => (
-                      <option key={supervisor.id} value={supervisor}>
+                      <option key={supervisor.id} value={JSON.stringify(supervisor)}>
                         {supervisor.name}
                       </option>
                     ))}

@@ -98,7 +98,7 @@ const UseCases = () => {
     const fetchCases = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:8080/user/${user.id}`);
+        const response = await axios.get(`http://localhost:8080/cases/user/${user.id}`);
         setCases(response.data); // Assuming the response is an array of case objects
         setLoading(false);
       } catch (error) {
