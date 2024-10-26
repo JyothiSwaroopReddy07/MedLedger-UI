@@ -62,6 +62,7 @@ const SignUp = () => {
                     confirmPassword: '',
                     role: 'RESIDENT'
                 });
+                window.location.href="/login";
             } catch (error) {
                 setErrorMessage('Signup failed. Please try again.');
                 setIsSubmitting(false);
