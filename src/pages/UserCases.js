@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAppContext } from '../Context/StateContext';
-import NavBar from "../components/NavBar";
 
 const dummyCases = [
   {
@@ -88,19 +87,18 @@ const dummyCases = [
 
 
 
-const SupervisiorDashBoard = () => {
+const UseCases = () => {
   const { user } = useAppContext(); // Get user from context
   const [cases, setCases] = useState(dummyCases); // Store all cases data
   const [selectedCase, setSelectedCase] = useState(null); // Store the selected case for the modal
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [approving, setApproving] = useState(false); // Loader state for Approve Case button
 
   useEffect(() => {
     const fetchCases = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:8080/supervisor/${user.id}`);
+        const response = await axios.get(`http://localhost:8080/user/${user.id}`);
         setCases(response.data); // Assuming the response is an array of case objects
         setLoading(false);
       } catch (error) {
@@ -126,28 +124,7 @@ const SupervisiorDashBoard = () => {
     setSelectedCase(null);
   };
 
-  // Approve case function
-  const approveCase = async () => {
-    setApproving(true); // Show loader
-    try {
-      const response = await axios.put(`http://localhost:8080/${selectedCase.caseId}/approve`);
-      if (response.status === 200) {
-        // Update case status in frontend
-        setSelectedCase({ ...selectedCase, status: 'APPROVED' });
-        // Optionally update the cases list as well
-        setCases(cases.map(caseItem => caseItem.caseId === selectedCase.caseId ? { ...caseItem, status: 'APPROVED' } : caseItem));
-        alert('Case approved successfully.');
-      }
-    } catch (error) {
-      console.error('Error approving case:', error);
-      alert('Failed to approve case.');
-    }
-    setApproving(false); // Hide loader after response
-  };
-
   return (
-    <>
-      <NavBar/>
     <div className="flex flex-col h-screen w-screen bg-gold p-4">
       <h2 className="text-4xl font-extrabold text-gray-700 mb-10"> My Cases</h2>
       <div className="flex justify-center items-center">
@@ -241,32 +218,11 @@ const SupervisiorDashBoard = () => {
                 </p>
               </div>
             </div>
-    
-            {/* Approve Button with Loader */}
-            {selectedCase.status === 'PENDING' && (
-              <div className="mt-6 flex items-center justify-end">
-                <button
-                  onClick={approveCase}
-                  disabled={approving}
-                  className={`mt-6 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200 font-bold flex justify-center items-center ${approving ? 'opacity-70' : ''}`}
-                >
-                  {approving ? (
-                    <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
-                      <path fill="currentColor" d="M4 12a8 8 0 018-8V0C6.477 0 2 4.477 2 10h2z" className="opacity-75" />
-                    </svg>
-                  ) : null}
-                  {approving ? 'Approving...' : 'Approve Case'}
-                </button>
-              </div>
-            )}
           </div>
         </div>
       )}
     </div>
-    </>
   );
-  
 };
 
-export default SupervisiorDashBoard;
+export default UseCases;

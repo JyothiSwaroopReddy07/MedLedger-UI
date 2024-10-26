@@ -1,4 +1,4 @@
-import SupervisiorDashBoard from './SupervisiorDashBoard'
+import UserCases from './UserCases'
 import NavBar from '../components/NavBar'
 
 export default function ResidentDashboardHistory() {
@@ -9,7 +9,7 @@ export default function ResidentDashboardHistory() {
       
         <NavBar/>
         <main>
-          <SupervisiorDashBoard />
+          <UserCases/>
         </main>
       </div>
     </>
