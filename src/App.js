@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ErrorPage from './pages/ErrorPage';
 import CaseForm from './pages/CaseForm';
 import SupervisiorDashBoard from './pages/SupervisiorDashBoard';
+import Stats from './pages/Stats';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/forgotpassword" element={<ForgotPassword/>}/>
             <Route path="/casereporting" element={<CaseForm/>}/>
             <Route path="/mycases" element={<SupervisiorDashBoard/>}/>
+            <Route path="/stats" element={<Stats/>}/>
             <Route path="*" element={<ErrorPage/>}/>
           </Routes>
       </div>
