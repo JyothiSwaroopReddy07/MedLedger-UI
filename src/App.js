@@ -11,6 +11,7 @@ import ResidentDashboardForm from './pages/ResidentDashboardForm';
 import ResidentDashboardHistory from './pages/ResidentDashboardHistory';
 import Stats from './pages/Stats';
 import ErrorPage from './pages/ErrorPage';
+import OurMission from './pages/OurMission';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/mission" element={<OurMission />} />
 
           {/* Protected Routes */}
           <Route
