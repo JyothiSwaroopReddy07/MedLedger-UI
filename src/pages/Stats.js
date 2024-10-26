@@ -2,6 +2,7 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import PieChart from '../components/PieChart';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import NavBar from '../components/NavBar';
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -111,10 +112,13 @@ const Stats = () => {
   };
 
   return (
+    <>
+    <NavBar/>
     <div className="w-full flex flex-wrap justify-center items-center mx-auto p-4">
       <div className="w-1/2"><Bar data={chartData} options={options}/></div>
       <div className="w-1/2"><PieChart data={caseData}/></div>
     </div>
+    </>
   );
 };
 
