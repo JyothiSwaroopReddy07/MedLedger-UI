@@ -1,8 +1,13 @@
 import React from 'react';
+import { FaArrowLeft } from 'react-icons/fa'; 
 
 const AboutUs = () => {
   return (
     <section className="bg-gray-50 py-24 px-6 sm:px-8 lg:px-12">
+        <a href="/" className="absolute top-4 left-4 flex items-center text-gray-700 hover:text-gray-900">
+                <FaArrowLeft className="mr-2" /> {/* Back arrow icon */}
+                <span className="text-sm font-semibold">Back to Home</span>
+        </a>
       <div className="max-w-5xl mx-auto text-center">
         <h1 className="text-4xl font-bold text-yellow-900 sm:text-5xl">About Us</h1>
         <p className="mt-6 text-lg text-gray-700 leading-7">
