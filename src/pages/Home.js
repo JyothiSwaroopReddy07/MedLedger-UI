@@ -1,11 +1,13 @@
-import React from 'react'
+import HeroSection from '../components/HeroSection.js';
+import Features from '../components/Features.js';
 
-const Home = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+export default function ResidentDashboard() {
+    
+    return(
+        <div>    
+            <HeroSection></HeroSection>
+            <Features></Features>
+        </div>
+    )
+    
 }
-
-export default Home
