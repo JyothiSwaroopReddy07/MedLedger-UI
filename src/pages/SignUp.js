@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const SignUp = () => {
     // Form state
     const [formData, setFormData] = useState({
-        email: '',
+        fullname: '',
         username: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        role: 'RESIDENT' // Default role selection
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     // Handle input change
     const handleChange = (e) => {
@@ -20,7 +24,7 @@ const SignUp = () => {
     // Validate form fields
     const validate = () => {
         const newErrors = {};
-        if (!formData.email) newErrors.email = 'Email is required';
+        if (!formData.fullname) newErrors.fullname = 'Full Name is required';
         if (!formData.username) newErrors.username = 'Username is required';
         if (!formData.password) newErrors.password = 'Password is required';
         if (formData.password !== formData.confirmPassword) {
@@ -31,23 +35,36 @@ const SignUp = () => {
     };
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
+        setErrorMessage('');
+        setSuccessMessage('');
+
         if (validate()) {
             setIsSubmitting(true);
-            // Mock API call (replace this with actual signup API call)
-            setTimeout(() => {
-                console.log('User signed up:', formData);
+            try {
+                // Make the signup request
+                const response = await axios.post('http://localhost:8080/auth/register', {
+                    name: formData.fullname,
+                    username: formData.username,
+                    password: formData.password,
+                    type: formData.role,
+                });
+                setSuccessMessage('Signup successful!');
                 setIsSubmitting(false);
                 // Reset form
                 setFormData({
-                    email: '',
+                    fullname: '',
                     username: '',
                     password: '',
-                    confirmPassword: ''
+                    confirmPassword: '',
+                    role: 'RESIDENT'
                 });
-            }, 2000);
+            } catch (error) {
+                setErrorMessage('Signup failed. Please try again.');
+                setIsSubmitting(false);
+            }
         }
     };
 
@@ -60,21 +77,20 @@ const SignUp = () => {
                     alt="logo"
                 />
                 <div className="w-full p-8 lg:w-1/2">
-                    <p className="text-3xl text-gray-600 text-center font-pacifico font-bold">MEDLEDGER</p>
                     <div className="mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Full Name</label>
                         <input
                             className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
-                            type="email"
-                            name="email"
-                            value={formData.email}
+                            type="text"
+                            name="fullname"
+                            value={formData.fullname}
                             onChange={handleChange}
                             required
                         />
-                        {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+                        {errors.fullname && <p className="text-red-500 text-xs">{errors.fullname}</p>}
                     </div>
                     <div className="mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">UserName</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Username</label>
                         <input
                             className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                             type="text"
@@ -86,7 +102,7 @@ const SignUp = () => {
                         {errors.username && <p className="text-red-500 text-xs">{errors.username}</p>}
                     </div>
                     <div className="mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Password</label>
                         <input
                             className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                             type="password"
@@ -98,7 +114,7 @@ const SignUp = () => {
                         {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
                     </div>
                     <div className="mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">Re Enter Password</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Re-enter Password</label>
                         <input
                             className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                             type="password"
@@ -109,6 +125,20 @@ const SignUp = () => {
                         />
                         {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
                     </div>
+                    <div className="mt-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Role</label>
+                        <select
+                            className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="RESIDENT">RESIDENT</option>
+                            <option value="SUPERVISOR">SUPERVISOR</option>
+                            <option value="PROGRAM_DIRECTOR">PROGRAM DIRECTOR</option>
+                        </select>
+                    </div>
                     <div className="mt-8">
                         <button
                             className="bg-gray-800 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
@@ -117,6 +147,8 @@ const SignUp = () => {
                         >
                             {isSubmitting ? 'Signing Up...' : 'Sign Up'}
                         </button>
+                        {successMessage && <p className="text-green-500 text-center mt-4">{successMessage}</p>}
+                        {errorMessage && <p className="text-red-500 text-center mt-4">{errorMessage}</p>}
                     </div>
                     <div className="mt-4 flex items-center w-full text-center">
                         <a href="/" className="text-xs text-gray-500 capitalize text-center w-full">
