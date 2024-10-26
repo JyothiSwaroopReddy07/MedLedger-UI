@@ -12,6 +12,8 @@ import ResidentDashboardHistory from './pages/ResidentDashboardHistory';
 import Stats from './pages/Stats';
 import ErrorPage from './pages/ErrorPage';
 import OurMission from './pages/OurMission';
+import AboutUs from './pages/AboutUS';
+import Careers from './pages/Careers';
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/mission" element={<OurMission />} />
+          <Route path="/aboutus" element={<AboutUs/>}/>
+          <Route path="/careers" element={<Careers/>}/>
 
           {/* Protected Routes */}
           <Route
