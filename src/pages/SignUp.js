@@ -7,7 +7,8 @@ const SignUp = () => {
         fullname: '',
         username: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        role: 'RESIDENT' // Default role selection
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,6 +49,7 @@ const SignUp = () => {
                     fullname: formData.fullname,
                     username: formData.username,
                     password: formData.password,
+                    role: formData.role,
                 });
                 setSuccessMessage('Signup successful!');
                 setIsSubmitting(false);
@@ -56,7 +58,8 @@ const SignUp = () => {
                     fullname: '',
                     username: '',
                     password: '',
-                    confirmPassword: ''
+                    confirmPassword: '',
+                    role: 'RESIDENT'
                 });
             } catch (error) {
                 setErrorMessage('Signup failed. Please try again.');
@@ -87,7 +90,7 @@ const SignUp = () => {
                         {errors.fullname && <p className="text-red-500 text-xs">{errors.fullname}</p>}
                     </div>
                     <div className="mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">UserName</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Username</label>
                         <input
                             className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                             type="text"
@@ -111,7 +114,7 @@ const SignUp = () => {
                         {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
                     </div>
                     <div className="mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Re Enter Password</label>
+                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Re-enter Password</label>
                         <input
                             className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                             type="password"
@@ -121,6 +124,20 @@ const SignUp = () => {
                             required
                         />
                         {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
+                    </div>
+                    <div className="mt-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2 text-left">Role</label>
+                        <select
+                            className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="RESIDENT">RESIDENT</option>
+                            <option value="SUPERVISOR">SUPERVISOR</option>
+                            <option value="PROGRAM_DIRECTOR">PROGRAM DIRECTOR</option>
+                        </select>
                     </div>
                     <div className="mt-8">
                         <button
